@@ -1,0 +1,2532 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{1d\_NN\_example}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Investigating the failure of convergence of neural networks on
+low dimensional
+inputs}\label{investigating-the-failure-of-convergence-of-neural-networks-on-low-dimensional-inputs}
+
+    \subsection{1. Import necessary libraries and define the required
+classes}\label{import-necessary-libraries-and-define-the-required-classes}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} notebook
+        
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{argparse}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{torch}
+        \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{nn} \PY{k}{as} \PY{n+nn}{nn}
+        \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{nn}\PY{n+nn}{.}\PY{n+nn}{functional} \PY{k}{as} \PY{n+nn}{F}
+        \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{optim} \PY{k}{as} \PY{n+nn}{optim}
+        \PY{k+kn}{from} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{utils}\PY{n+nn}{.}\PY{n+nn}{data} \PY{k}{import} \PY{n}{Dataset}\PY{p}{,} \PY{n}{DataLoader}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{time}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{preprocessing}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{normalize}
+        \PY{c+c1}{\PYZsh{} matplotlib.use(\PYZsq{}agg\PYZsq{})}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{collections}
+        \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{import} \PY{n+nn}{pickle}
+        \PY{n}{torch}\PY{o}{.}\PY{n}{set\PYZus{}default\PYZus{}tensor\PYZus{}type}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{torch.FloatTensor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Multilayer fully connected network with Relu activation.}
+        \PY{k}{class} \PY{n+nc}{LNN}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}\PY{n}{num\PYZus{}feature}\PY{p}{,}\PY{n}{num\PYZus{}hidden}\PY{p}{,}\PY{n}{nb\PYZus{}layers}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{super}\PY{p}{(}\PY{n}{LNN}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{,} \PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}\PYZsh{} Inputs:}
+                \PY{c+c1}{\PYZsh{} num\PYZus{}feature: int, size of input dimension}
+                \PY{c+c1}{\PYZsh{} num\PYZus{}hidden: int, number of hidden units per layer}
+                \PY{c+c1}{\PYZsh{} nb\PYZus{}layers: int, number of layers}
+                
+                \PY{n}{fc} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{nb\PYZus{}layers}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{if} \PY{n}{i} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                        \PY{n}{fc}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{n}{num\PYZus{}feature}\PY{p}{,} \PY{n}{num\PYZus{}hidden}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                        \PY{n}{fc}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ReLU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{nn}\PY{o}{.}\PY{n}{ReLU}\PY{p}{(}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                    \PY{k}{elif} \PY{n}{i} \PY{o}{==} \PY{n}{nb\PYZus{}layers}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+                        \PY{n}{fc}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{n}{num\PYZus{}hidden}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                    \PY{k}{else}\PY{p}{:}
+                        \PY{n}{fc}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{,}\PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{n}{num\PYZus{}hidden}\PY{p}{,} \PY{n}{num\PYZus{}hidden}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                        \PY{n}{fc}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ReLU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{nn}\PY{o}{.}\PY{n}{ReLU}\PY{p}{(}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{linear} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Sequential}\PY{p}{(}\PY{n}{collections}\PY{o}{.}\PY{n}{OrderedDict}\PY{p}{(}\PY{n}{fc}\PY{p}{)}\PY{p}{)}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{log} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Sigmoid}\PY{p}{(}\PY{p}{)}
+        
+            \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} Choose whether or not to use a Sigmoid activation unit at the top of the network}
+                \PY{c+c1}{\PYZsh{} to bound output with in (0,1)}
+        \PY{c+c1}{\PYZsh{}         x = self.log(self.linear(x))}
+                \PY{n}{x} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{linear}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                \PY{k}{return} \PY{n}{x}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Training function: perform one step of accelerated gradient descent (no subsampling)}
+        \PY{k}{def} \PY{n+nf}{train}\PY{p}{(}\PY{n}{net}\PY{p}{,}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{learning\PYZus{}rate}\PY{p}{)}\PY{p}{:}
+            \PY{n}{optimizer} \PY{o}{=} \PY{n}{optim}\PY{o}{.}\PY{n}{SGD}\PY{p}{(}\PY{n}{net}\PY{o}{.}\PY{n}{parameters}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{momentum} \PY{o}{=} \PY{l+m+mf}{0.9}\PY{p}{,} \PY{n}{lr}\PY{o}{=}\PY{n}{learning\PYZus{}rate}\PY{p}{)}
+            \PY{n}{criterion} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{MSELoss}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} Using mean squared loss}
+            \PY{c+c1}{\PYZsh{}\PYZsh{} zero the parameter gradients}
+            \PY{n}{optimizer}\PY{o}{.}\PY{n}{zero\PYZus{}grad}\PY{p}{(}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}\PYZsh{} forward + backward + optimize}
+            \PY{n}{outputs} \PY{o}{=} \PY{n}{net}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+            \PY{n}{loss} \PY{o}{=} \PY{n}{criterion}\PY{p}{(}\PY{n}{outputs}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+            \PY{n}{loss}\PY{o}{.}\PY{n}{backward}\PY{p}{(}\PY{p}{)}
+            \PY{n}{optimizer}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}\PYZsh{} Print loss}
+            \PY{k}{return} \PY{n}{loss}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{2. Examples:}\label{examples}
+
+    \subsubsection{a. Pneumonia age
+example.}\label{a.-pneumonia-age-example.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Import Data \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{n}{file} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{medis9847c.data}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{} data file}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}table}\PY{p}{(}\PY{n}{file}\PY{p}{,}\PY{n}{header} \PY{o}{=} \PY{k+kc}{None}\PY{p}{)}
+        \PY{n}{val} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{values}
+        
+        \PY{c+c1}{\PYZsh{} extract the age feature and normalize it to within the range where most activation threshold lies}
+        \PY{n}{age} \PY{o}{=} \PY{p}{(}\PY{n}{val}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{60}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{10} 
+        \PY{c+c1}{\PYZsh{} extract the labels}
+        \PY{n}{y} \PY{o}{=} \PY{n}{val}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Hyperparameters \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{n}{num\PYZus{}feature} \PY{o}{=} \PY{l+m+mi}{1} \PY{c+c1}{\PYZsh{} input dimension}
+        \PY{n}{num\PYZus{}epoch} \PY{o}{=} \PY{l+m+mi}{40000} \PY{c+c1}{\PYZsh{} number of epoch SGD runs}
+        \PY{n}{num\PYZus{}hidden} \PY{o}{=} \PY{l+m+mi}{2000} \PY{c+c1}{\PYZsh{} number of hidden units per layer}
+        \PY{n}{num\PYZus{}layer} \PY{o}{=} \PY{l+m+mi}{2} \PY{c+c1}{\PYZsh{} number of layer}
+        \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}4} \PY{c+c1}{\PYZsh{} learning rate}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Experiments \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{n}{x} \PY{o}{=} \PY{n}{age}
+        \PY{n}{inputs} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{from\PYZus{}numpy}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{.}\PY{n}{float}\PY{p}{(}\PY{p}{)}
+        \PY{n}{outputs} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{from\PYZus{}numpy}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{o}{.}\PY{n}{float}\PY{p}{(}\PY{p}{)}
+        \PY{n}{net} \PY{o}{=} \PY{n}{LNN}\PY{p}{(}\PY{n}{num\PYZus{}feature}\PY{p}{,} \PY{n}{num\PYZus{}hidden}\PY{p}{,}\PY{n}{num\PYZus{}layer}\PY{p}{)}
+        \PY{n}{train\PYZus{}loss} \PY{o}{=} \PY{p}{[}\PY{k+kc}{None}\PY{p}{]}\PY{o}{*}\PY{n}{num\PYZus{}epoch}
+        \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}epoch}\PY{p}{)}\PY{p}{:}  \PY{c+c1}{\PYZsh{} loop over the dataset multiple times}
+            \PY{n}{train\PYZus{}loss}\PY{p}{[}\PY{n}{epoch}\PY{p}{]} \PY{o}{=} \PY{n}{train}\PY{p}{(}\PY{n}{net}\PY{p}{,}\PY{n}{inputs}\PY{p}{,}\PY{n}{outputs}\PY{p}{,}\PY{n}{learning\PYZus{}rate}\PY{p}{)}
+            \PY{k}{if} \PY{n}{epoch} \PY{o}{\PYZpc{}} \PY{l+m+mi}{50} \PY{o}{==} \PY{l+m+mi}{49}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training Iteration:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{epoch}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training Loss:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{train\PYZus{}loss}\PY{p}{[}\PY{n}{epoch}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training Iteration: 50
+Training Loss: 0.09828850626945496
+Training Iteration: 100
+Training Loss: 0.09610185027122498
+Training Iteration: 150
+Training Loss: 0.0950547382235527
+Training Iteration: 200
+Training Loss: 0.0945339947938919
+Training Iteration: 250
+Training Loss: 0.09426116943359375
+Training Iteration: 300
+Training Loss: 0.09410854429006577
+Training Iteration: 350
+Training Loss: 0.09401340782642365
+Training Iteration: 400
+Training Loss: 0.09394972026348114
+Training Iteration: 450
+Training Loss: 0.09390147775411606
+Training Iteration: 500
+Training Loss: 0.09386613965034485
+Training Iteration: 550
+Training Loss: 0.09383487701416016
+Training Iteration: 600
+Training Loss: 0.09381286054849625
+Training Iteration: 650
+Training Loss: 0.09379049390554428
+Training Iteration: 700
+Training Loss: 0.09377028048038483
+Training Iteration: 750
+Training Loss: 0.09375817328691483
+Training Iteration: 800
+Training Loss: 0.09374403953552246
+Training Iteration: 850
+Training Loss: 0.09373247623443604
+Training Iteration: 900
+Training Loss: 0.0937238559126854
+Training Iteration: 950
+Training Loss: 0.09371651709079742
+Training Iteration: 1000
+Training Loss: 0.09370829910039902
+Training Iteration: 1050
+Training Loss: 0.09370073676109314
+Training Iteration: 1100
+Training Loss: 0.09369514137506485
+Training Iteration: 1150
+Training Loss: 0.09369176626205444
+Training Iteration: 1200
+Training Loss: 0.09368772059679031
+Training Iteration: 1250
+Training Loss: 0.0936833918094635
+Training Iteration: 1300
+Training Loss: 0.09368040412664413
+Training Iteration: 1350
+Training Loss: 0.09367548674345016
+Training Iteration: 1400
+Training Loss: 0.09367458522319794
+Training Iteration: 1450
+Training Loss: 0.09367435425519943
+Training Iteration: 1500
+Training Loss: 0.09367077797651291
+Training Iteration: 1550
+Training Loss: 0.09367116540670395
+Training Iteration: 1600
+Training Loss: 0.09366714954376221
+Training Iteration: 1650
+Training Loss: 0.09366507828235626
+Training Iteration: 1700
+Training Loss: 0.09366274625062943
+Training Iteration: 1750
+Training Loss: 0.09366261959075928
+Training Iteration: 1800
+Training Loss: 0.09366193413734436
+Training Iteration: 1850
+Training Loss: 0.09365981817245483
+Training Iteration: 1900
+Training Loss: 0.09365863353013992
+Training Iteration: 1950
+Training Loss: 0.09365832805633545
+Training Iteration: 2000
+Training Loss: 0.09365793317556381
+Training Iteration: 2050
+Training Loss: 0.09365811944007874
+Training Iteration: 2100
+Training Loss: 0.09365598112344742
+Training Iteration: 2150
+Training Loss: 0.09365545958280563
+Training Iteration: 2200
+Training Loss: 0.0936543196439743
+Training Iteration: 2250
+Training Loss: 0.09365350753068924
+Training Iteration: 2300
+Training Loss: 0.09365145862102509
+Training Iteration: 2350
+Training Loss: 0.0936533734202385
+Training Iteration: 2400
+Training Loss: 0.09365465492010117
+Training Iteration: 2450
+Training Loss: 0.09365369379520416
+Training Iteration: 2500
+Training Loss: 0.09365254640579224
+Training Iteration: 2550
+Training Loss: 0.09365098178386688
+Training Iteration: 2600
+Training Loss: 0.09364946186542511
+Training Iteration: 2650
+Training Loss: 0.09365039318799973
+Training Iteration: 2700
+Training Loss: 0.09364993125200272
+Training Iteration: 2750
+Training Loss: 0.09364822506904602
+Training Iteration: 2800
+Training Loss: 0.09364799410104752
+Training Iteration: 2850
+Training Loss: 0.0936482772231102
+Training Iteration: 2900
+Training Loss: 0.09364542365074158
+Training Iteration: 2950
+Training Loss: 0.09364377707242966
+Training Iteration: 3000
+Training Loss: 0.09364411979913712
+Training Iteration: 3050
+Training Loss: 0.09364315867424011
+Training Iteration: 3100
+Training Loss: 0.09364339709281921
+Training Iteration: 3150
+Training Loss: 0.09364381432533264
+Training Iteration: 3200
+Training Loss: 0.09364347904920578
+Training Iteration: 3250
+Training Loss: 0.09364204853773117
+Training Iteration: 3300
+Training Loss: 0.09364139288663864
+Training Iteration: 3350
+Training Loss: 0.09363891184329987
+Training Iteration: 3400
+Training Loss: 0.09363967180252075
+Training Iteration: 3450
+Training Loss: 0.09364133328199387
+Training Iteration: 3500
+Training Loss: 0.09364017844200134
+Training Iteration: 3550
+Training Loss: 0.0936395525932312
+Training Iteration: 3600
+Training Loss: 0.09364021569490433
+Training Iteration: 3650
+Training Loss: 0.09363822638988495
+Training Iteration: 3700
+Training Loss: 0.09363765269517899
+Training Iteration: 3750
+Training Loss: 0.09363702684640884
+Training Iteration: 3800
+Training Loss: 0.09363646805286407
+Training Iteration: 3850
+Training Loss: 0.09363465011119843
+Training Iteration: 3900
+Training Loss: 0.09363631904125214
+Training Iteration: 3950
+Training Loss: 0.09363505989313126
+Training Iteration: 4000
+Training Loss: 0.09363380074501038
+Training Iteration: 4050
+Training Loss: 0.09363457560539246
+Training Iteration: 4100
+Training Loss: 0.09363310784101486
+Training Iteration: 4150
+Training Loss: 0.09363371878862381
+Training Iteration: 4200
+Training Loss: 0.09363261610269547
+Training Iteration: 4250
+Training Loss: 0.09363283216953278
+Training Iteration: 4300
+Training Loss: 0.09363189339637756
+Training Iteration: 4350
+Training Loss: 0.09363175183534622
+Training Iteration: 4400
+Training Loss: 0.09363041073083878
+Training Iteration: 4450
+Training Loss: 0.0936293676495552
+Training Iteration: 4500
+Training Loss: 0.09362920373678207
+Training Iteration: 4550
+Training Loss: 0.09362895786762238
+Training Iteration: 4600
+Training Loss: 0.09363066405057907
+Training Iteration: 4650
+Training Loss: 0.093629390001297
+Training Iteration: 4700
+Training Loss: 0.09362822026014328
+Training Iteration: 4750
+Training Loss: 0.0936276912689209
+Training Iteration: 4800
+Training Loss: 0.09362679719924927
+Training Iteration: 4850
+Training Loss: 0.09362626820802689
+Training Iteration: 4900
+Training Loss: 0.09362605214118958
+Training Iteration: 4950
+Training Loss: 0.09362656623125076
+Training Iteration: 5000
+Training Loss: 0.09362535923719406
+Training Iteration: 5050
+Training Loss: 0.09362556785345078
+Training Iteration: 5100
+Training Loss: 0.09362491220235825
+Training Iteration: 5150
+Training Loss: 0.09362421929836273
+Training Iteration: 5200
+Training Loss: 0.0936245247721672
+Training Iteration: 5250
+Training Loss: 0.0936235561966896
+Training Iteration: 5300
+Training Loss: 0.09362305700778961
+Training Iteration: 5350
+Training Loss: 0.09362222999334335
+Training Iteration: 5400
+Training Loss: 0.09362310916185379
+Training Iteration: 5450
+Training Loss: 0.0936206802725792
+Training Iteration: 5500
+Training Loss: 0.09362033754587173
+Training Iteration: 5550
+Training Loss: 0.0936209037899971
+Training Iteration: 5600
+Training Loss: 0.09362129867076874
+Training Iteration: 5650
+Training Loss: 0.09362038969993591
+Training Iteration: 5700
+Training Loss: 0.0936199203133583
+Training Iteration: 5750
+Training Loss: 0.09361965209245682
+Training Iteration: 5800
+Training Loss: 0.09361948072910309
+Training Iteration: 5850
+Training Loss: 0.0936194360256195
+Training Iteration: 5900
+Training Loss: 0.09361916780471802
+Training Iteration: 5950
+Training Loss: 0.09361743181943893
+Training Iteration: 6000
+Training Loss: 0.09361723810434341
+Training Iteration: 6050
+Training Loss: 0.09361732751131058
+Training Iteration: 6100
+Training Loss: 0.09361585974693298
+Training Iteration: 6150
+Training Loss: 0.09361537545919418
+Training Iteration: 6200
+Training Loss: 0.09361525624990463
+Training Iteration: 6250
+Training Loss: 0.0936146005988121
+Training Iteration: 6300
+Training Loss: 0.09361469000577927
+Training Iteration: 6350
+Training Loss: 0.09361477941274643
+Training Iteration: 6400
+Training Loss: 0.09361433982849121
+Training Iteration: 6450
+Training Loss: 0.09361325204372406
+Training Iteration: 6500
+Training Loss: 0.09361419081687927
+Training Iteration: 6550
+Training Loss: 0.09361334890127182
+Training Iteration: 6600
+Training Loss: 0.09361241012811661
+Training Iteration: 6650
+Training Loss: 0.0936121791601181
+Training Iteration: 6700
+Training Loss: 0.09361228346824646
+Training Iteration: 6750
+Training Loss: 0.09361137449741364
+Training Iteration: 6800
+Training Loss: 0.09361100941896439
+Training Iteration: 6850
+Training Loss: 0.09361118078231812
+Training Iteration: 6900
+Training Loss: 0.09361142665147781
+Training Iteration: 6950
+Training Loss: 0.0936114713549614
+Training Iteration: 7000
+Training Loss: 0.09361172467470169
+Training Iteration: 7050
+Training Loss: 0.0936100035905838
+Training Iteration: 7100
+Training Loss: 0.09360933303833008
+Training Iteration: 7150
+Training Loss: 0.09360876679420471
+Training Iteration: 7200
+Training Loss: 0.09360811859369278
+Training Iteration: 7250
+Training Loss: 0.09360875189304352
+Training Iteration: 7300
+Training Loss: 0.09360787272453308
+Training Iteration: 7350
+Training Loss: 0.09360659867525101
+Training Iteration: 7400
+Training Loss: 0.09360743314027786
+Training Iteration: 7450
+Training Loss: 0.09360779821872711
+Training Iteration: 7500
+Training Loss: 0.09360621869564056
+Training Iteration: 7550
+Training Loss: 0.09360586851835251
+Training Iteration: 7600
+Training Loss: 0.09360506385564804
+Training Iteration: 7650
+Training Loss: 0.09360496699810028
+Training Iteration: 7700
+Training Loss: 0.09360425174236298
+Training Iteration: 7750
+Training Loss: 0.09360494464635849
+Training Iteration: 7800
+Training Loss: 0.09360489994287491
+Training Iteration: 7850
+Training Loss: 0.09360507875680923
+Training Iteration: 7900
+Training Loss: 0.09360520541667938
+Training Iteration: 7950
+Training Loss: 0.09360437095165253
+Training Iteration: 8000
+Training Loss: 0.09360431879758835
+Training Iteration: 8050
+Training Loss: 0.09360279142856598
+Training Iteration: 8100
+Training Loss: 0.09360241144895554
+Training Iteration: 8150
+Training Loss: 0.09360223263502121
+Training Iteration: 8200
+Training Loss: 0.0936025008559227
+Training Iteration: 8250
+Training Loss: 0.09360099583864212
+Training Iteration: 8300
+Training Loss: 0.09360086917877197
+Training Iteration: 8350
+Training Loss: 0.09360090643167496
+Training Iteration: 8400
+Training Loss: 0.09360034763813019
+Training Iteration: 8450
+Training Loss: 0.09360051900148392
+Training Iteration: 8500
+Training Loss: 0.09360121935606003
+Training Iteration: 8550
+Training Loss: 0.09360084682703018
+Training Iteration: 8600
+Training Loss: 0.09360022842884064
+Training Iteration: 8650
+Training Loss: 0.09359807521104813
+Training Iteration: 8700
+Training Loss: 0.0935981422662735
+Training Iteration: 8750
+Training Loss: 0.09359941631555557
+Training Iteration: 8800
+Training Loss: 0.09359847754240036
+Training Iteration: 8850
+Training Loss: 0.09359825402498245
+Training Iteration: 8900
+Training Loss: 0.0935981497168541
+Training Iteration: 8950
+Training Loss: 0.09359849244356155
+Training Iteration: 9000
+Training Loss: 0.09359822422266006
+Training Iteration: 9050
+Training Loss: 0.09359780699014664
+Training Iteration: 9100
+Training Loss: 0.09359721094369888
+Training Iteration: 9150
+Training Loss: 0.09359777718782425
+Training Iteration: 9200
+Training Loss: 0.09359762817621231
+Training Iteration: 9250
+Training Loss: 0.09359654039144516
+Training Iteration: 9300
+Training Loss: 0.09359584748744965
+Training Iteration: 9350
+Training Loss: 0.09359484165906906
+Training Iteration: 9400
+Training Loss: 0.09359408169984818
+Training Iteration: 9450
+Training Loss: 0.09359478205442429
+Training Iteration: 9500
+Training Loss: 0.0935944989323616
+Training Iteration: 9550
+Training Loss: 0.09359481930732727
+Training Iteration: 9600
+Training Loss: 0.09359444677829742
+Training Iteration: 9650
+Training Loss: 0.09359350800514221
+Training Iteration: 9700
+Training Loss: 0.09359260648488998
+Training Iteration: 9750
+Training Loss: 0.09359246492385864
+Training Iteration: 9800
+Training Loss: 0.09359165281057358
+Training Iteration: 9850
+Training Loss: 0.09359109401702881
+Training Iteration: 9900
+Training Loss: 0.09359189867973328
+Training Iteration: 9950
+Training Loss: 0.09359078109264374
+Training Iteration: 10000
+Training Loss: 0.09359022974967957
+Training Iteration: 10050
+Training Loss: 0.09359055757522583
+Training Iteration: 10100
+Training Loss: 0.09359067678451538
+Training Iteration: 10150
+Training Loss: 0.09359055012464523
+Training Iteration: 10200
+Training Loss: 0.09359071403741837
+Training Iteration: 10250
+Training Loss: 0.093590646982193
+Training Iteration: 10300
+Training Loss: 0.09359009563922882
+Training Iteration: 10350
+Training Loss: 0.09358874708414078
+Training Iteration: 10400
+Training Loss: 0.09358982741832733
+Training Iteration: 10450
+Training Loss: 0.09358938038349152
+Training Iteration: 10500
+Training Loss: 0.09358933568000793
+Training Iteration: 10550
+Training Loss: 0.09358897060155869
+Training Iteration: 10600
+Training Loss: 0.09358850121498108
+Training Iteration: 10650
+Training Loss: 0.09358922392129898
+Training Iteration: 10700
+Training Loss: 0.09358744323253632
+Training Iteration: 10750
+Training Loss: 0.0935882180929184
+Training Iteration: 10800
+Training Loss: 0.09358660876750946
+Training Iteration: 10850
+Training Loss: 0.09358595311641693
+Training Iteration: 10900
+Training Loss: 0.09358613938093185
+Training Iteration: 10950
+Training Loss: 0.09358562529087067
+Training Iteration: 11000
+Training Loss: 0.09358572959899902
+Training Iteration: 11050
+Training Loss: 0.09358508884906769
+Training Iteration: 11100
+Training Loss: 0.0935836061835289
+Training Iteration: 11150
+Training Loss: 0.09358397126197815
+Training Iteration: 11200
+Training Loss: 0.09358470886945724
+Training Iteration: 11250
+Training Loss: 0.0935845598578453
+Training Iteration: 11300
+Training Loss: 0.09358559548854828
+Training Iteration: 11350
+Training Loss: 0.09358461201190948
+Training Iteration: 11400
+Training Loss: 0.093583844602108
+Training Iteration: 11450
+Training Loss: 0.09358325600624084
+Training Iteration: 11500
+Training Loss: 0.09358192980289459
+Training Iteration: 11550
+Training Loss: 0.09358179569244385
+Training Iteration: 11600
+Training Loss: 0.09358199685811996
+Training Iteration: 11650
+Training Loss: 0.09358103573322296
+Training Iteration: 11700
+Training Loss: 0.09358138591051102
+Training Iteration: 11750
+Training Loss: 0.09358123689889908
+Training Iteration: 11800
+Training Loss: 0.09358040243387222
+Training Iteration: 11850
+Training Loss: 0.09358079731464386
+Training Iteration: 11900
+Training Loss: 0.09358146786689758
+Training Iteration: 11950
+Training Loss: 0.0935799852013588
+Training Iteration: 12000
+Training Loss: 0.09357994049787521
+Training Iteration: 12050
+Training Loss: 0.09357953071594238
+Training Iteration: 12100
+Training Loss: 0.09357900172472
+Training Iteration: 12150
+Training Loss: 0.09357938915491104
+Training Iteration: 12200
+Training Loss: 0.09357846528291702
+Training Iteration: 12250
+Training Loss: 0.0935785323381424
+Training Iteration: 12300
+Training Loss: 0.09357816725969315
+Training Iteration: 12350
+Training Loss: 0.09357854723930359
+Training Iteration: 12400
+Training Loss: 0.0935777947306633
+Training Iteration: 12450
+Training Loss: 0.09357831627130508
+Training Iteration: 12500
+Training Loss: 0.09357742220163345
+Training Iteration: 12550
+Training Loss: 0.09357739239931107
+Training Iteration: 12600
+Training Loss: 0.09357656538486481
+Training Iteration: 12650
+Training Loss: 0.09357665479183197
+Training Iteration: 12700
+Training Loss: 0.09357666224241257
+Training Iteration: 12750
+Training Loss: 0.09357680380344391
+Training Iteration: 12800
+Training Loss: 0.09357687085866928
+Training Iteration: 12850
+Training Loss: 0.09357631206512451
+Training Iteration: 12900
+Training Loss: 0.09357582032680511
+Training Iteration: 12950
+Training Loss: 0.0935763493180275
+Training Iteration: 13000
+Training Loss: 0.09357678890228271
+Training Iteration: 13050
+Training Loss: 0.09357552975416183
+Training Iteration: 13100
+Training Loss: 0.09357637912034988
+Training Iteration: 13150
+Training Loss: 0.09357708692550659
+Training Iteration: 13200
+Training Loss: 0.09357697516679764
+Training Iteration: 13250
+Training Loss: 0.09357655048370361
+Training Iteration: 13300
+Training Loss: 0.09357517212629318
+Training Iteration: 13350
+Training Loss: 0.09357437491416931
+Training Iteration: 13400
+Training Loss: 0.09357473254203796
+Training Iteration: 13450
+Training Loss: 0.09357394278049469
+Training Iteration: 13500
+Training Loss: 0.09357332438230515
+Training Iteration: 13550
+Training Loss: 0.09357348084449768
+Training Iteration: 13600
+Training Loss: 0.09357266873121262
+Training Iteration: 13650
+Training Loss: 0.09357272833585739
+Training Iteration: 13700
+Training Loss: 0.093573197722435
+Training Iteration: 13750
+Training Loss: 0.09357289969921112
+Training Iteration: 13800
+Training Loss: 0.09357199817895889
+Training Iteration: 13850
+Training Loss: 0.0935719907283783
+Training Iteration: 13900
+Training Loss: 0.09357050061225891
+Training Iteration: 13950
+Training Loss: 0.09357038885354996
+Training Iteration: 14000
+Training Loss: 0.09357047826051712
+Training Iteration: 14050
+Training Loss: 0.09356975555419922
+Training Iteration: 14100
+Training Loss: 0.09356891363859177
+Training Iteration: 14150
+Training Loss: 0.0935678705573082
+Training Iteration: 14200
+Training Loss: 0.09356724470853806
+Training Iteration: 14250
+Training Loss: 0.09356783330440521
+Training Iteration: 14300
+Training Loss: 0.09356752783060074
+Training Iteration: 14350
+Training Loss: 0.09356757998466492
+Training Iteration: 14400
+Training Loss: 0.09356654435396194
+Training Iteration: 14450
+Training Loss: 0.0935664176940918
+Training Iteration: 14500
+Training Loss: 0.09356733411550522
+Training Iteration: 14550
+Training Loss: 0.09356768429279327
+Training Iteration: 14600
+Training Loss: 0.0935668796300888
+Training Iteration: 14650
+Training Loss: 0.09356720000505447
+Training Iteration: 14700
+Training Loss: 0.09356703609228134
+Training Iteration: 14750
+Training Loss: 0.09356735646724701
+Training Iteration: 14800
+Training Loss: 0.09356766939163208
+Training Iteration: 14850
+Training Loss: 0.09356636554002762
+Training Iteration: 14900
+Training Loss: 0.09356670826673508
+Training Iteration: 14950
+Training Loss: 0.09356653690338135
+Training Iteration: 15000
+Training Loss: 0.09356649219989777
+Training Iteration: 15050
+Training Loss: 0.09356646239757538
+Training Iteration: 15100
+Training Loss: 0.0935652032494545
+Training Iteration: 15150
+Training Loss: 0.0935649573802948
+Training Iteration: 15200
+Training Loss: 0.09356517344713211
+Training Iteration: 15250
+Training Loss: 0.09356559813022614
+Training Iteration: 15300
+Training Loss: 0.09356576949357986
+Training Iteration: 15350
+Training Loss: 0.0935647115111351
+Training Iteration: 15400
+Training Loss: 0.09356439858675003
+Training Iteration: 15450
+Training Loss: 0.09356477856636047
+Training Iteration: 15500
+Training Loss: 0.0935644656419754
+Training Iteration: 15550
+Training Loss: 0.09356405586004257
+Training Iteration: 15600
+Training Loss: 0.09356272965669632
+Training Iteration: 15650
+Training Loss: 0.09356340020895004
+Training Iteration: 15700
+Training Loss: 0.09356358647346497
+Training Iteration: 15750
+Training Loss: 0.09356334805488586
+Training Iteration: 15800
+Training Loss: 0.09356357157230377
+Training Iteration: 15850
+Training Loss: 0.09356262534856796
+Training Iteration: 15900
+Training Loss: 0.09356199204921722
+Training Iteration: 15950
+Training Loss: 0.09356221556663513
+Training Iteration: 16000
+Training Loss: 0.09356173127889633
+Training Iteration: 16050
+Training Loss: 0.09356236457824707
+Training Iteration: 16100
+Training Loss: 0.09356091171503067
+Training Iteration: 16150
+Training Loss: 0.09356103837490082
+Training Iteration: 16200
+Training Loss: 0.0935610681772232
+Training Iteration: 16250
+Training Loss: 0.0935608521103859
+Training Iteration: 16300
+Training Loss: 0.09356056898832321
+Training Iteration: 16350
+Training Loss: 0.09356003254652023
+Training Iteration: 16400
+Training Loss: 0.09355941414833069
+Training Iteration: 16450
+Training Loss: 0.09355954825878143
+Training Iteration: 16500
+Training Loss: 0.09355970472097397
+Training Iteration: 16550
+Training Loss: 0.09355990588665009
+Training Iteration: 16600
+Training Loss: 0.09355966001749039
+Training Iteration: 16650
+Training Loss: 0.09355835616588593
+Training Iteration: 16700
+Training Loss: 0.09355878084897995
+Training Iteration: 16750
+Training Loss: 0.09355885535478592
+Training Iteration: 16800
+Training Loss: 0.09355921298265457
+Training Iteration: 16850
+Training Loss: 0.09355874359607697
+Training Iteration: 16900
+Training Loss: 0.09355670213699341
+Training Iteration: 16950
+Training Loss: 0.09355631470680237
+Training Iteration: 17000
+Training Loss: 0.09355754405260086
+Training Iteration: 17050
+Training Loss: 0.09355869144201279
+Training Iteration: 17100
+Training Loss: 0.09355850517749786
+Training Iteration: 17150
+Training Loss: 0.09355814009904861
+Training Iteration: 17200
+Training Loss: 0.0935571938753128
+Training Iteration: 17250
+Training Loss: 0.09355713427066803
+Training Iteration: 17300
+Training Loss: 0.09355741739273071
+Training Iteration: 17350
+Training Loss: 0.09355692565441132
+Training Iteration: 17400
+Training Loss: 0.09355619549751282
+Training Iteration: 17450
+Training Loss: 0.0935555025935173
+Training Iteration: 17500
+Training Loss: 0.09355580061674118
+Training Iteration: 17550
+Training Loss: 0.09355564415454865
+Training Iteration: 17600
+Training Loss: 0.09355601668357849
+Training Iteration: 17650
+Training Loss: 0.09355590492486954
+Training Iteration: 17700
+Training Loss: 0.09355510026216507
+Training Iteration: 17750
+Training Loss: 0.09355520457029343
+Training Iteration: 17800
+Training Loss: 0.0935550257563591
+Training Iteration: 17850
+Training Loss: 0.09355409443378448
+Training Iteration: 17900
+Training Loss: 0.09355439245700836
+Training Iteration: 17950
+Training Loss: 0.0935535654425621
+Training Iteration: 18000
+Training Loss: 0.0935528501868248
+Training Iteration: 18050
+Training Loss: 0.09355205297470093
+Training Iteration: 18100
+Training Loss: 0.09355224668979645
+Training Iteration: 18150
+Training Loss: 0.09355286508798599
+Training Iteration: 18200
+Training Loss: 0.09355262666940689
+Training Iteration: 18250
+Training Loss: 0.09355153888463974
+Training Iteration: 18300
+Training Loss: 0.09355171769857407
+Training Iteration: 18350
+Training Loss: 0.09355155378580093
+Training Iteration: 18400
+Training Loss: 0.09355144947767258
+Training Iteration: 18450
+Training Loss: 0.09355044364929199
+Training Iteration: 18500
+Training Loss: 0.09355112165212631
+Training Iteration: 18550
+Training Loss: 0.09355126321315765
+Training Iteration: 18600
+Training Loss: 0.09355109930038452
+Training Iteration: 18650
+Training Loss: 0.09355103969573975
+Training Iteration: 18700
+Training Loss: 0.09355184435844421
+Training Iteration: 18750
+Training Loss: 0.09355103224515915
+Training Iteration: 18800
+Training Loss: 0.09354978054761887
+Training Iteration: 18850
+Training Loss: 0.09354965388774872
+Training Iteration: 18900
+Training Loss: 0.09354973584413528
+Training Iteration: 18950
+Training Loss: 0.09354978054761887
+Training Iteration: 19000
+Training Loss: 0.09355005621910095
+Training Iteration: 19050
+Training Loss: 0.0935504361987114
+Training Iteration: 19100
+Training Loss: 0.09355011582374573
+Training Iteration: 19150
+Training Loss: 0.09354983270168304
+Training Iteration: 19200
+Training Loss: 0.09354977309703827
+Training Iteration: 19250
+Training Loss: 0.09354952722787857
+Training Iteration: 19300
+Training Loss: 0.0935487449169159
+Training Iteration: 19350
+Training Loss: 0.09354894608259201
+Training Iteration: 19400
+Training Loss: 0.09354900568723679
+Training Iteration: 19450
+Training Loss: 0.09354978799819946
+Training Iteration: 19500
+Training Loss: 0.0935494676232338
+Training Iteration: 19550
+Training Loss: 0.09354842454195023
+Training Iteration: 19600
+Training Loss: 0.09354893118143082
+Training Iteration: 19650
+Training Loss: 0.09354875981807709
+Training Iteration: 19700
+Training Loss: 0.0935482457280159
+Training Iteration: 19750
+Training Loss: 0.0935487151145935
+Training Iteration: 19800
+Training Loss: 0.09354782104492188
+Training Iteration: 19850
+Training Loss: 0.09354839473962784
+Training Iteration: 19900
+Training Loss: 0.09354771673679352
+Training Iteration: 19950
+Training Loss: 0.09354725480079651
+Training Iteration: 20000
+Training Loss: 0.09354811906814575
+Training Iteration: 20050
+Training Loss: 0.09354744851589203
+Training Iteration: 20100
+Training Loss: 0.09354818612337112
+Training Iteration: 20150
+Training Loss: 0.09354771673679352
+Training Iteration: 20200
+Training Loss: 0.09354725480079651
+Training Iteration: 20250
+Training Loss: 0.09354838728904724
+Training Iteration: 20300
+Training Loss: 0.0935477688908577
+Training Iteration: 20350
+Training Loss: 0.09354791790246964
+Training Iteration: 20400
+Training Loss: 0.09354719519615173
+Training Iteration: 20450
+Training Loss: 0.09354711323976517
+Training Iteration: 20500
+Training Loss: 0.09354663640260696
+Training Iteration: 20550
+Training Loss: 0.09354720264673233
+Training Iteration: 20600
+Training Loss: 0.09354651719331741
+Training Iteration: 20650
+Training Loss: 0.09354643523693085
+Training Iteration: 20700
+Training Loss: 0.09354550391435623
+Training Iteration: 20750
+Training Loss: 0.09354529529809952
+Training Iteration: 20800
+Training Loss: 0.09354628622531891
+Training Iteration: 20850
+Training Loss: 0.09354541450738907
+Training Iteration: 20900
+Training Loss: 0.09354626387357712
+Training Iteration: 20950
+Training Loss: 0.09354682266712189
+Training Iteration: 21000
+Training Loss: 0.09354662895202637
+Training Iteration: 21050
+Training Loss: 0.09354569017887115
+Training Iteration: 21100
+Training Loss: 0.0935443863272667
+Training Iteration: 21150
+Training Loss: 0.09354446828365326
+Training Iteration: 21200
+Training Loss: 0.09354384243488312
+Training Iteration: 21250
+Training Loss: 0.09354345500469208
+Training Iteration: 21300
+Training Loss: 0.09354323148727417
+Training Iteration: 21350
+Training Loss: 0.09354282915592194
+Training Iteration: 21400
+Training Loss: 0.09354430437088013
+Training Iteration: 21450
+Training Loss: 0.0935438871383667
+Training Iteration: 21500
+Training Loss: 0.09354446083307266
+Training Iteration: 21550
+Training Loss: 0.09354313462972641
+Training Iteration: 21600
+Training Loss: 0.09354347735643387
+Training Iteration: 21650
+Training Loss: 0.09354235231876373
+Training Iteration: 21700
+Training Loss: 0.09354183822870255
+Training Iteration: 21750
+Training Loss: 0.0935424342751503
+Training Iteration: 21800
+Training Loss: 0.09354191273450851
+Training Iteration: 21850
+Training Loss: 0.09354140609502792
+Training Iteration: 21900
+Training Loss: 0.09354095906019211
+Training Iteration: 21950
+Training Loss: 0.09354105591773987
+Training Iteration: 22000
+Training Loss: 0.09354095906019211
+Training Iteration: 22050
+Training Loss: 0.09354183077812195
+Training Iteration: 22100
+Training Loss: 0.09354174882173538
+Training Iteration: 22150
+Training Loss: 0.09354151040315628
+Training Iteration: 22200
+Training Loss: 0.09354119002819061
+Training Iteration: 22250
+Training Loss: 0.0935405045747757
+Training Iteration: 22300
+Training Loss: 0.09354107826948166
+Training Iteration: 22350
+Training Loss: 0.09354099631309509
+Training Iteration: 22400
+Training Loss: 0.09354089945554733
+Training Iteration: 22450
+Training Loss: 0.09354100376367569
+Training Iteration: 22500
+Training Loss: 0.09353962540626526
+Training Iteration: 22550
+Training Loss: 0.0935390368103981
+Training Iteration: 22600
+Training Loss: 0.09353931993246078
+Training Iteration: 22650
+Training Loss: 0.09353982657194138
+Training Iteration: 22700
+Training Loss: 0.09353908151388168
+Training Iteration: 22750
+Training Loss: 0.09353937953710556
+Training Iteration: 22800
+Training Loss: 0.09354006499052048
+Training Iteration: 22850
+Training Loss: 0.09353981167078018
+Training Iteration: 22900
+Training Loss: 0.09353893250226974
+Training Iteration: 22950
+Training Loss: 0.09353919327259064
+Training Iteration: 23000
+Training Loss: 0.09353866428136826
+Training Iteration: 23050
+Training Loss: 0.09353967010974884
+Training Iteration: 23100
+Training Loss: 0.09354006499052048
+Training Iteration: 23150
+Training Loss: 0.093538798391819
+Training Iteration: 23200
+Training Loss: 0.09353853017091751
+Training Iteration: 23250
+Training Loss: 0.09353869408369064
+Training Iteration: 23300
+Training Loss: 0.09353839606046677
+Training Iteration: 23350
+Training Loss: 0.09353803843259811
+Training Iteration: 23400
+Training Loss: 0.09353760629892349
+Training Iteration: 23450
+Training Loss: 0.09353657066822052
+Training Iteration: 23500
+Training Loss: 0.09353699535131454
+Training Iteration: 23550
+Training Loss: 0.09353653341531754
+Training Iteration: 23600
+Training Loss: 0.09353586286306381
+Training Iteration: 23650
+Training Loss: 0.0935359075665474
+Training Iteration: 23700
+Training Loss: 0.09353586286306381
+Training Iteration: 23750
+Training Loss: 0.09353621304035187
+Training Iteration: 23800
+Training Loss: 0.09353635460138321
+Training Iteration: 23850
+Training Loss: 0.09353692829608917
+Training Iteration: 23900
+Training Loss: 0.09353618323802948
+Training Iteration: 23950
+Training Loss: 0.09353533387184143
+Training Iteration: 24000
+Training Loss: 0.09353509545326233
+Training Iteration: 24050
+Training Loss: 0.09353508055210114
+Training Iteration: 24100
+Training Loss: 0.09353384375572205
+Training Iteration: 24150
+Training Loss: 0.09353390336036682
+Training Iteration: 24200
+Training Loss: 0.09353401511907578
+Training Iteration: 24250
+Training Loss: 0.0935344472527504
+Training Iteration: 24300
+Training Loss: 0.09353414177894592
+Training Iteration: 24350
+Training Loss: 0.09353506565093994
+Training Iteration: 24400
+Training Loss: 0.09353523701429367
+Training Iteration: 24450
+Training Loss: 0.09353537112474442
+Training Iteration: 24500
+Training Loss: 0.09353424608707428
+Training Iteration: 24550
+Training Loss: 0.09353477507829666
+Training Iteration: 24600
+Training Loss: 0.09353497624397278
+Training Iteration: 24650
+Training Loss: 0.09353486448526382
+Training Iteration: 24700
+Training Loss: 0.09353376924991608
+Training Iteration: 24750
+Training Loss: 0.09353349357843399
+Training Iteration: 24800
+Training Loss: 0.09353302419185638
+Training Iteration: 24850
+Training Loss: 0.09353247284889221
+Training Iteration: 24900
+Training Loss: 0.09353324770927429
+Training Iteration: 24950
+Training Loss: 0.09353364259004593
+Training Iteration: 25000
+Training Loss: 0.09353381395339966
+Training Iteration: 25050
+Training Loss: 0.0935339480638504
+Training Iteration: 25100
+Training Loss: 0.0935334786772728
+Training Iteration: 25150
+Training Loss: 0.09353340417146683
+Training Iteration: 25200
+Training Loss: 0.09353321045637131
+Training Iteration: 25250
+Training Loss: 0.09353227913379669
+Training Iteration: 25300
+Training Loss: 0.09353194385766983
+Training Iteration: 25350
+Training Loss: 0.09353216737508774
+Training Iteration: 25400
+Training Loss: 0.09353196620941162
+Training Iteration: 25450
+Training Loss: 0.0935325026512146
+Training Iteration: 25500
+Training Loss: 0.0935322642326355
+Training Iteration: 25550
+Training Loss: 0.09353207796812057
+Training Iteration: 25600
+Training Loss: 0.09353245794773102
+Training Iteration: 25650
+Training Loss: 0.09353306889533997
+Training Iteration: 25700
+Training Loss: 0.0935315266251564
+Training Iteration: 25750
+Training Loss: 0.0935320183634758
+Training Iteration: 25800
+Training Loss: 0.09353101253509521
+Training Iteration: 25850
+Training Loss: 0.09353167563676834
+Training Iteration: 25900
+Training Loss: 0.09353100508451462
+Training Iteration: 25950
+Training Loss: 0.09353107213973999
+Training Iteration: 26000
+Training Loss: 0.09353043138980865
+Training Iteration: 26050
+Training Loss: 0.09353022277355194
+Training Iteration: 26100
+Training Loss: 0.09353029727935791
+Training Iteration: 26150
+Training Loss: 0.09353093802928925
+Training Iteration: 26200
+Training Loss: 0.0935315415263176
+Training Iteration: 26250
+Training Loss: 0.09353071451187134
+Training Iteration: 26300
+Training Loss: 0.09353047609329224
+Training Iteration: 26350
+Training Loss: 0.09353007376194
+Training Iteration: 26400
+Training Loss: 0.09352979063987732
+Training Iteration: 26450
+Training Loss: 0.09352994710206985
+Training Iteration: 26500
+Training Loss: 0.09352988749742508
+Training Iteration: 26550
+Training Loss: 0.09352993220090866
+Training Iteration: 26600
+Training Loss: 0.09352944791316986
+Training Iteration: 26650
+Training Loss: 0.09352883696556091
+Training Iteration: 26700
+Training Loss: 0.09352763742208481
+Training Iteration: 26750
+Training Loss: 0.09352719038724899
+Training Iteration: 26800
+Training Loss: 0.09352754056453705
+Training Iteration: 26850
+Training Loss: 0.09352735430002213
+Training Iteration: 26900
+Training Loss: 0.09352844208478928
+Training Iteration: 26950
+Training Loss: 0.09352870285511017
+Training Iteration: 27000
+Training Loss: 0.0935281291604042
+Training Iteration: 27050
+Training Loss: 0.09352806210517883
+Training Iteration: 27100
+Training Loss: 0.0935279130935669
+Training Iteration: 27150
+Training Loss: 0.09352731704711914
+Training Iteration: 27200
+Training Loss: 0.09352774918079376
+Training Iteration: 27250
+Training Loss: 0.09352734684944153
+Training Iteration: 27300
+Training Loss: 0.09352642297744751
+Training Iteration: 27350
+Training Loss: 0.09352613985538483
+Training Iteration: 27400
+Training Loss: 0.09352664649486542
+Training Iteration: 27450
+Training Loss: 0.09352630376815796
+Training Iteration: 27500
+Training Loss: 0.0935264304280281
+Training Iteration: 27550
+Training Loss: 0.09352662414312363
+Training Iteration: 27600
+Training Loss: 0.09352638572454453
+Training Iteration: 27650
+Training Loss: 0.09352564066648483
+Training Iteration: 27700
+Training Loss: 0.09352525323629379
+Training Iteration: 27750
+Training Loss: 0.09352526813745499
+Training Iteration: 27800
+Training Loss: 0.09352487325668335
+Training Iteration: 27850
+Training Loss: 0.09352526813745499
+Training Iteration: 27900
+Training Loss: 0.09352525323629379
+Training Iteration: 27950
+Training Loss: 0.09352587908506393
+Training Iteration: 28000
+Training Loss: 0.09352611750364304
+Training Iteration: 28050
+Training Loss: 0.0935259610414505
+Training Iteration: 28100
+Training Loss: 0.09352578967809677
+Training Iteration: 28150
+Training Loss: 0.09352611750364304
+Training Iteration: 28200
+Training Loss: 0.09352664649486542
+Training Iteration: 28250
+Training Loss: 0.09352796524763107
+Training Iteration: 28300
+Training Loss: 0.09352803975343704
+Training Iteration: 28350
+Training Loss: 0.0935286208987236
+Training Iteration: 28400
+Training Loss: 0.09352832287549973
+Training Iteration: 28450
+Training Loss: 0.09352809935808182
+Training Iteration: 28500
+Training Loss: 0.0935283675789833
+Training Iteration: 28550
+Training Loss: 0.0935281366109848
+Training Iteration: 28600
+Training Loss: 0.09352798759937286
+Training Iteration: 28650
+Training Loss: 0.0935286208987236
+Training Iteration: 28700
+Training Loss: 0.09352810680866241
+Training Iteration: 28750
+Training Loss: 0.09352783113718033
+Training Iteration: 28800
+Training Loss: 0.09352755546569824
+Training Iteration: 28850
+Training Loss: 0.093528151512146
+Training Iteration: 28900
+Training Loss: 0.09352697432041168
+Training Iteration: 28950
+Training Loss: 0.09352675080299377
+Training Iteration: 29000
+Training Loss: 0.093527652323246
+Training Iteration: 29050
+Training Loss: 0.09352787584066391
+Training Iteration: 29100
+Training Loss: 0.09352713823318481
+Training Iteration: 29150
+Training Loss: 0.09352642297744751
+Training Iteration: 29200
+Training Loss: 0.093526691198349
+Training Iteration: 29250
+Training Loss: 0.09352628886699677
+Training Iteration: 29300
+Training Loss: 0.09352683275938034
+Training Iteration: 29350
+Training Loss: 0.09352664649486542
+Training Iteration: 29400
+Training Loss: 0.09352720528841019
+Training Iteration: 29450
+Training Loss: 0.09352610260248184
+Training Iteration: 29500
+Training Loss: 0.09352573752403259
+Training Iteration: 29550
+Training Loss: 0.09352517873048782
+Training Iteration: 29600
+Training Loss: 0.09352512657642365
+Training Iteration: 29650
+Training Loss: 0.09352592378854752
+Training Iteration: 29700
+Training Loss: 0.09352559596300125
+Training Iteration: 29750
+Training Loss: 0.09352564066648483
+Training Iteration: 29800
+Training Loss: 0.0935264378786087
+Training Iteration: 29850
+Training Loss: 0.09352567791938782
+Training Iteration: 29900
+Training Loss: 0.09352511912584305
+Training Iteration: 29950
+Training Loss: 0.09352511167526245
+Training Iteration: 30000
+Training Loss: 0.09352433681488037
+Training Iteration: 30050
+Training Loss: 0.0935242623090744
+Training Iteration: 30100
+Training Loss: 0.0935223251581192
+Training Iteration: 30150
+Training Loss: 0.09352187067270279
+Training Iteration: 30200
+Training Loss: 0.09352171421051025
+Training Iteration: 30250
+Training Loss: 0.09352204203605652
+Training Iteration: 30300
+Training Loss: 0.09352216124534607
+Training Iteration: 30350
+Training Loss: 0.09352191537618637
+Training Iteration: 30400
+Training Loss: 0.09352127462625504
+Training Iteration: 30450
+Training Loss: 0.09352134168148041
+Training Iteration: 30500
+Training Loss: 0.09352217614650726
+Training Iteration: 30550
+Training Loss: 0.09352168440818787
+Training Iteration: 30600
+Training Loss: 0.0935218408703804
+Training Iteration: 30650
+Training Loss: 0.09352126717567444
+Training Iteration: 30700
+Training Loss: 0.09352134168148041
+Training Iteration: 30750
+Training Loss: 0.09352123737335205
+Training Iteration: 30800
+Training Loss: 0.09352006763219833
+Training Iteration: 30850
+Training Loss: 0.09352023154497147
+Training Iteration: 30900
+Training Loss: 0.09352071583271027
+Training Iteration: 30950
+Training Loss: 0.09352059662342072
+Training Iteration: 31000
+Training Loss: 0.09352122247219086
+Training Iteration: 31050
+Training Loss: 0.09352070093154907
+Training Iteration: 31100
+Training Loss: 0.09352033585309982
+Training Iteration: 31150
+Training Loss: 0.09351915121078491
+Training Iteration: 31200
+Training Loss: 0.09351959824562073
+Training Iteration: 31250
+Training Loss: 0.0935191661119461
+Training Iteration: 31300
+Training Loss: 0.09351877868175507
+Training Iteration: 31350
+Training Loss: 0.09351925551891327
+Training Iteration: 31400
+Training Loss: 0.09351931512355804
+Training Iteration: 31450
+Training Loss: 0.09351891279220581
+Training Iteration: 31500
+Training Loss: 0.09351850301027298
+Training Iteration: 31550
+Training Loss: 0.09351824969053268
+Training Iteration: 31600
+Training Loss: 0.0935181975364685
+Training Iteration: 31650
+Training Loss: 0.09351787716150284
+Training Iteration: 31700
+Training Loss: 0.09351778030395508
+Training Iteration: 31750
+Training Loss: 0.09351848065853119
+Training Iteration: 31800
+Training Loss: 0.0935189425945282
+Training Iteration: 31850
+Training Loss: 0.09351897984743118
+Training Iteration: 31900
+Training Loss: 0.09351889789104462
+Training Iteration: 31950
+Training Loss: 0.09351811558008194
+Training Iteration: 32000
+Training Loss: 0.09351885318756104
+Training Iteration: 32050
+Training Loss: 0.09351847320795059
+Training Iteration: 32100
+Training Loss: 0.09351865947246552
+Training Iteration: 32150
+Training Loss: 0.09351956099271774
+Training Iteration: 32200
+Training Loss: 0.09351908415555954
+Training Iteration: 32250
+Training Loss: 0.09352017939090729
+Training Iteration: 32300
+Training Loss: 0.09352012723684311
+Training Iteration: 32350
+Training Loss: 0.09351997077465057
+Training Iteration: 32400
+Training Loss: 0.0935199186205864
+Training Iteration: 32450
+Training Loss: 0.09351947158575058
+Training Iteration: 32500
+Training Loss: 0.09351889789104462
+Training Iteration: 32550
+Training Loss: 0.09351832419633865
+Training Iteration: 32600
+Training Loss: 0.09351936727762222
+Training Iteration: 32650
+Training Loss: 0.09351888298988342
+Training Iteration: 32700
+Training Loss: 0.09351889044046402
+Training Iteration: 32750
+Training Loss: 0.09351863712072372
+Training Iteration: 32800
+Training Loss: 0.09351912140846252
+Training Iteration: 32850
+Training Loss: 0.09351948648691177
+Training Iteration: 32900
+Training Loss: 0.09351898729801178
+Training Iteration: 32950
+Training Loss: 0.09351848065853119
+Training Iteration: 33000
+Training Loss: 0.09351842850446701
+Training Iteration: 33050
+Training Loss: 0.09351866692304611
+Training Iteration: 33100
+Training Loss: 0.09351878613233566
+Training Iteration: 33150
+Training Loss: 0.09351831674575806
+Training Iteration: 33200
+Training Loss: 0.09351906180381775
+Training Iteration: 33250
+Training Loss: 0.09351920336484909
+Training Iteration: 33300
+Training Loss: 0.09351843595504761
+Training Iteration: 33350
+Training Loss: 0.09351886808872223
+Training Iteration: 33400
+Training Loss: 0.0935182049870491
+Training Iteration: 33450
+Training Loss: 0.09351814538240433
+Training Iteration: 33500
+Training Loss: 0.0935182273387909
+Training Iteration: 33550
+Training Loss: 0.09351743757724762
+Training Iteration: 33600
+Training Loss: 0.09351743757724762
+Training Iteration: 33650
+Training Loss: 0.09351796656847
+Training Iteration: 33700
+Training Loss: 0.09351847320795059
+Training Iteration: 33750
+Training Loss: 0.09351804852485657
+Training Iteration: 33800
+Training Loss: 0.09351769089698792
+Training Iteration: 33850
+Training Loss: 0.09351617097854614
+Training Iteration: 33900
+Training Loss: 0.09351637959480286
+Training Iteration: 33950
+Training Loss: 0.09351573884487152
+Training Iteration: 34000
+Training Loss: 0.09351561963558197
+Training Iteration: 34050
+Training Loss: 0.09351557493209839
+Training Iteration: 34100
+Training Loss: 0.09351618587970734
+Training Iteration: 34150
+Training Loss: 0.09351653605699539
+Training Iteration: 34200
+Training Loss: 0.09351666271686554
+Training Iteration: 34250
+Training Loss: 0.09351512044668198
+Training Iteration: 34300
+Training Loss: 0.09351514279842377
+Training Iteration: 34350
+Training Loss: 0.09351511299610138
+Training Iteration: 34400
+Training Loss: 0.09351514279842377
+Training Iteration: 34450
+Training Loss: 0.0935148149728775
+Training Iteration: 34500
+Training Loss: 0.09351406246423721
+Training Iteration: 34550
+Training Loss: 0.09351465106010437
+Training Iteration: 34600
+Training Loss: 0.0935148075222969
+Training Iteration: 34650
+Training Loss: 0.0935148149728775
+Training Iteration: 34700
+Training Loss: 0.09351479262113571
+Training Iteration: 34750
+Training Loss: 0.0935152992606163
+Training Iteration: 34800
+Training Loss: 0.09351598471403122
+Training Iteration: 34850
+Training Loss: 0.09351567924022675
+Training Iteration: 34900
+Training Loss: 0.09351486712694168
+Training Iteration: 34950
+Training Loss: 0.09351428598165512
+Training Iteration: 35000
+Training Loss: 0.09351402521133423
+Training Iteration: 35050
+Training Loss: 0.09351463615894318
+Training Iteration: 35100
+Training Loss: 0.09351302683353424
+Training Iteration: 35150
+Training Loss: 0.09351321309804916
+Training Iteration: 35200
+Training Loss: 0.0935131311416626
+Training Iteration: 35250
+Training Loss: 0.09351333230733871
+Training Iteration: 35300
+Training Loss: 0.0935131087899208
+Training Iteration: 35350
+Training Loss: 0.09351351112127304
+Training Iteration: 35400
+Training Loss: 0.09351451694965363
+Training Iteration: 35450
+Training Loss: 0.09351383149623871
+Training Iteration: 35500
+Training Loss: 0.09351366013288498
+Training Iteration: 35550
+Training Loss: 0.09351397305727005
+Training Iteration: 35600
+Training Loss: 0.09351399540901184
+Training Iteration: 35650
+Training Loss: 0.09351441264152527
+Training Iteration: 35700
+Training Loss: 0.09351478517055511
+Training Iteration: 35750
+Training Loss: 0.09351455420255661
+Training Iteration: 35800
+Training Loss: 0.09351485967636108
+Training Iteration: 35850
+Training Loss: 0.09351418167352676
+Training Iteration: 35900
+Training Loss: 0.09351406246423721
+Training Iteration: 35950
+Training Loss: 0.0935133695602417
+Training Iteration: 36000
+Training Loss: 0.09351328015327454
+Training Iteration: 36050
+Training Loss: 0.09351290017366409
+Training Iteration: 36100
+Training Loss: 0.09351295977830887
+Training Iteration: 36150
+Training Loss: 0.09351363033056259
+Training Iteration: 36200
+Training Loss: 0.09351350367069244
+Training Iteration: 36250
+Training Loss: 0.0935131162405014
+Training Iteration: 36300
+Training Loss: 0.0935121551156044
+Training Iteration: 36350
+Training Loss: 0.09351176768541336
+Training Iteration: 36400
+Training Loss: 0.093511663377285
+Training Iteration: 36450
+Training Loss: 0.09351179748773575
+Training Iteration: 36500
+Training Loss: 0.0935124084353447
+Training Iteration: 36550
+Training Loss: 0.09351310133934021
+Training Iteration: 36600
+Training Loss: 0.09351257979869843
+Training Iteration: 36650
+Training Loss: 0.09351351857185364
+Training Iteration: 36700
+Training Loss: 0.09351319819688797
+Training Iteration: 36750
+Training Loss: 0.09351298958063126
+Training Iteration: 36800
+Training Loss: 0.09351307153701782
+Training Iteration: 36850
+Training Loss: 0.09351298958063126
+Training Iteration: 36900
+Training Loss: 0.09351283311843872
+Training Iteration: 36950
+Training Loss: 0.09351251274347305
+Training Iteration: 37000
+Training Loss: 0.09351202100515366
+Training Iteration: 37050
+Training Loss: 0.09351150691509247
+Training Iteration: 37100
+Training Loss: 0.09351114928722382
+Training Iteration: 37150
+Training Loss: 0.09351157397031784
+Training Iteration: 37200
+Training Loss: 0.09351202845573425
+Training Iteration: 37250
+Training Loss: 0.09351219236850739
+Training Iteration: 37300
+Training Loss: 0.09351199865341187
+Training Iteration: 37350
+Training Loss: 0.0935126319527626
+Training Iteration: 37400
+Training Loss: 0.09351316094398499
+Training Iteration: 37450
+Training Loss: 0.0935131162405014
+Training Iteration: 37500
+Training Loss: 0.09351327270269394
+Training Iteration: 37550
+Training Loss: 0.09351156651973724
+Training Iteration: 37600
+Training Loss: 0.09351150691509247
+Training Iteration: 37650
+Training Loss: 0.09351081401109695
+Training Iteration: 37700
+Training Loss: 0.0935109555721283
+Training Iteration: 37750
+Training Loss: 0.09351102262735367
+Training Iteration: 37800
+Training Loss: 0.09351105242967606
+Training Iteration: 37850
+Training Loss: 0.09351134300231934
+Training Iteration: 37900
+Training Loss: 0.0935116559267044
+Training Iteration: 37950
+Training Loss: 0.09351042658090591
+Training Iteration: 38000
+Training Loss: 0.09350934624671936
+Training Iteration: 38050
+Training Loss: 0.09350989758968353
+Training Iteration: 38100
+Training Loss: 0.09351079910993576
+Training Iteration: 38150
+Training Loss: 0.09351091086864471
+Training Iteration: 38200
+Training Loss: 0.09351085126399994
+Training Iteration: 38250
+Training Loss: 0.09351110458374023
+Training Iteration: 38300
+Training Loss: 0.0935111790895462
+Training Iteration: 38350
+Training Loss: 0.09351038187742233
+Training Iteration: 38400
+Training Loss: 0.0935097262263298
+Training Iteration: 38450
+Training Loss: 0.09351014345884323
+Training Iteration: 38500
+Training Loss: 0.0935102328658104
+Training Iteration: 38550
+Training Loss: 0.09351033717393875
+Training Iteration: 38600
+Training Loss: 0.09351027756929398
+Training Iteration: 38650
+Training Loss: 0.09351065754890442
+Training Iteration: 38700
+Training Loss: 0.09351076185703278
+Training Iteration: 38750
+Training Loss: 0.09351077675819397
+Training Iteration: 38800
+Training Loss: 0.0935102254152298
+Training Iteration: 38850
+Training Loss: 0.09351038187742233
+Training Iteration: 38900
+Training Loss: 0.09350994229316711
+Training Iteration: 38950
+Training Loss: 0.09350986778736115
+Training Iteration: 39000
+Training Loss: 0.09350964426994324
+Training Iteration: 39050
+Training Loss: 0.09350904077291489
+Training Iteration: 39100
+Training Loss: 0.09350939840078354
+Training Iteration: 39150
+Training Loss: 0.09350907802581787
+Training Iteration: 39200
+Training Loss: 0.09351012110710144
+Training Iteration: 39250
+Training Loss: 0.09351015836000443
+Training Iteration: 39300
+Training Loss: 0.09350921958684921
+Training Iteration: 39350
+Training Loss: 0.09350897371768951
+Training Iteration: 39400
+Training Loss: 0.09350911527872086
+Training Iteration: 39450
+Training Loss: 0.0935092642903328
+Training Iteration: 39500
+Training Loss: 0.0935092493891716
+Training Iteration: 39550
+Training Loss: 0.09350953996181488
+Training Iteration: 39600
+Training Loss: 0.09350886940956116
+Training Iteration: 39650
+Training Loss: 0.0935089960694313
+Training Iteration: 39700
+Training Loss: 0.09350898861885071
+Training Iteration: 39750
+Training Loss: 0.09350887686014175
+Training Iteration: 39800
+Training Loss: 0.0935092568397522
+Training Iteration: 39850
+Training Loss: 0.09350954741239548
+Training Iteration: 39900
+Training Loss: 0.09350978583097458
+Training Iteration: 39950
+Training Loss: 0.09350982308387756
+Training Iteration: 40000
+Training Loss: 0.0935092568397522
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Plot the results}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{val} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{values}
+        \PY{n}{unique\PYZus{}age} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{age}\PY{p}{)}
+        \PY{n}{h} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{val}\PY{p}{[}\PY{n}{np}\PY{o}{.}\PY{n}{multiply}\PY{p}{(}\PY{n}{age}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{age}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{i}\PY{o}{+}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{l+m+mf}{0.01} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{unique\PYZus{}age}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} the histogram}
+        \PY{c+c1}{\PYZsh{}\PYZsh{} The marginalization plot p(y|x), which is the optimal predictor}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{unique\PYZus{}age}\PY{p}{,}\PY{n}{h}\PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{original data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}\PYZsh{} The plot of the neural net\PYZsq{}s prediction}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{unique\PYZus{}age}\PY{p}{,}\PY{n}{net}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{from\PYZus{}numpy}\PY{p}{(}\PY{n}{unique\PYZus{}age}\PY{p}{[}\PY{o}{.}\PY{o}{.}\PY{o}{.}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{float}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{detach}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NN prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}\PYZsh{} Plot of training losses vs number of epoches.}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{train\PYZus{}loss}\PY{p}{[}\PY{l+m+mi}{50}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<IPython.core.display.Javascript object>
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \subsubsection{b. 1-dimensional dataset. Random x and y sampled from
+standard Gaussian. Squared loss
+used.}\label{b.-1-dimensional-dataset.-random-x-and-y-sampled-from-standard-gaussian.-squared-loss-used.}
+
+In this example, the global minimum should achieve zero training error.
+It seems that the neural net is trapped in some local minimum and fits a
+smooth function.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Hyperparameters\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{n}{num\PYZus{}feature} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{num\PYZus{}epoch} \PY{o}{=} \PY{l+m+mi}{1000000}
+        \PY{n}{num\PYZus{}hidden} \PY{o}{=} \PY{l+m+mi}{500}
+        \PY{n}{num\PYZus{}layer} \PY{o}{=} \PY{l+m+mi}{2}
+        \PY{n}{learning\PYZus{}rate} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}4}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Experiments \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+        \PY{n}{num\PYZus{}data} \PY{o}{=} \PY{l+m+mi}{5}
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{num\PYZus{}data}\PY{p}{,}\PY{n}{num\PYZus{}feature}\PY{p}{)}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}data}\PY{p}{)}\PY{p}{:}
+            \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.1}\PY{o}{*}\PY{n}{i} \PY{o}{\PYZhy{}} \PY{l+m+mf}{0.1}\PY{o}{*}\PY{n}{num\PYZus{}data}\PY{o}{/}\PY{l+m+mi}{2}
+        \PY{n}{x}\PY{o}{.}\PY{n}{sort}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n}{num\PYZus{}data}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{inputs} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{from\PYZus{}numpy}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{o}{.}\PY{n}{float}\PY{p}{(}\PY{p}{)}
+        \PY{n}{outputs} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{from\PYZus{}numpy}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{o}{.}\PY{n}{float}\PY{p}{(}\PY{p}{)}
+        \PY{n}{net2} \PY{o}{=} \PY{n}{LNN}\PY{p}{(}\PY{n}{num\PYZus{}feature}\PY{p}{,} \PY{n}{num\PYZus{}hidden}\PY{p}{,}\PY{n}{num\PYZus{}layer}\PY{p}{)}
+        \PY{n}{train\PYZus{}loss2} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}epoch}\PY{p}{)}\PY{p}{:}  \PY{c+c1}{\PYZsh{} loop over the dataset multiple times}
+            \PY{n}{train\PYZus{}loss2}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train}\PY{p}{(}\PY{n}{net2}\PY{p}{,}\PY{n}{inputs}\PY{p}{,}\PY{n}{outputs}\PY{p}{,}\PY{n}{learning\PYZus{}rate}\PY{p}{)}\PY{p}{)}
+            \PY{k}{if} \PY{n}{epoch} \PY{o}{\PYZpc{}} \PY{l+m+mi}{5000} \PY{o}{==} \PY{l+m+mi}{4999}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training Iteration:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{epoch}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training Loss:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{train\PYZus{}loss2}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training Iteration: 5000
+Training Loss: 0.07242752611637115
+Training Iteration: 10000
+Training Loss: 0.06980308890342712
+Training Iteration: 15000
+Training Loss: 0.06843391060829163
+Training Iteration: 20000
+Training Loss: 0.06714524328708649
+Training Iteration: 25000
+Training Loss: 0.06588571518659592
+Training Iteration: 30000
+Training Loss: 0.06463891267776489
+Training Iteration: 35000
+Training Loss: 0.06340692937374115
+Training Iteration: 40000
+Training Loss: 0.06218086555600166
+Training Iteration: 45000
+Training Loss: 0.0609586238861084
+Training Iteration: 50000
+Training Loss: 0.059734344482421875
+Training Iteration: 55000
+Training Loss: 0.05850159004330635
+Training Iteration: 60000
+Training Loss: 0.05726361274719238
+Training Iteration: 65000
+Training Loss: 0.05601244047284126
+Training Iteration: 70000
+Training Loss: 0.054804861545562744
+Training Iteration: 75000
+Training Loss: 0.053635429590940475
+Training Iteration: 80000
+Training Loss: 0.052480172365903854
+Training Iteration: 85000
+Training Loss: 0.05134398862719536
+Training Iteration: 90000
+Training Loss: 0.05021073669195175
+Training Iteration: 95000
+Training Loss: 0.04907829314470291
+Training Iteration: 100000
+Training Loss: 0.04794599488377571
+Training Iteration: 105000
+Training Loss: 0.04682449623942375
+Training Iteration: 110000
+Training Loss: 0.045725755393505096
+Training Iteration: 115000
+Training Loss: 0.0446280762553215
+Training Iteration: 120000
+Training Loss: 0.043540406972169876
+Training Iteration: 125000
+Training Loss: 0.04247920587658882
+Training Iteration: 130000
+Training Loss: 0.04146397486329079
+Training Iteration: 135000
+Training Loss: 0.04050698131322861
+Training Iteration: 140000
+Training Loss: 0.039577893912792206
+Training Iteration: 145000
+Training Loss: 0.0386626161634922
+Training Iteration: 150000
+Training Loss: 0.03776026517152786
+Training Iteration: 155000
+Training Loss: 0.036870650947093964
+Training Iteration: 160000
+Training Loss: 0.03603402525186539
+Training Iteration: 165000
+Training Loss: 0.03521379083395004
+Training Iteration: 170000
+Training Loss: 0.03440811112523079
+Training Iteration: 175000
+Training Loss: 0.03361497074365616
+Training Iteration: 180000
+Training Loss: 0.03283410519361496
+Training Iteration: 185000
+Training Loss: 0.03206363692879677
+Training Iteration: 190000
+Training Loss: 0.03132854774594307
+Training Iteration: 195000
+Training Loss: 0.030617451295256615
+Training Iteration: 200000
+Training Loss: 0.02991982363164425
+Training Iteration: 205000
+Training Loss: 0.02923334203660488
+Training Iteration: 210000
+Training Loss: 0.02856633998453617
+Training Iteration: 215000
+Training Loss: 0.0279308520257473
+Training Iteration: 220000
+Training Loss: 0.027319569140672684
+Training Iteration: 225000
+Training Loss: 0.026719624176621437
+Training Iteration: 230000
+Training Loss: 0.02613026835024357
+Training Iteration: 235000
+Training Loss: 0.025552187114953995
+Training Iteration: 240000
+Training Loss: 0.02498382329940796
+Training Iteration: 245000
+Training Loss: 0.02442491613328457
+Training Iteration: 250000
+Training Loss: 0.02387460321187973
+Training Iteration: 255000
+Training Loss: 0.023354116827249527
+Training Iteration: 260000
+Training Loss: 0.022849436849355698
+Training Iteration: 265000
+Training Loss: 0.022355396300554276
+Training Iteration: 270000
+Training Loss: 0.02187248505651951
+Training Iteration: 275000
+Training Loss: 0.02139909192919731
+Training Iteration: 280000
+Training Loss: 0.020933980122208595
+Training Iteration: 285000
+Training Loss: 0.02048313058912754
+Training Iteration: 290000
+Training Loss: 0.02004038728773594
+Training Iteration: 295000
+Training Loss: 0.01960546150803566
+Training Iteration: 300000
+Training Loss: 0.0191803015768528
+Training Iteration: 305000
+Training Loss: 0.018765032291412354
+Training Iteration: 310000
+Training Loss: 0.018356556072831154
+Training Iteration: 315000
+Training Loss: 0.01795647293329239
+Training Iteration: 320000
+Training Loss: 0.01756681501865387
+Training Iteration: 325000
+Training Loss: 0.017196010798215866
+Training Iteration: 330000
+Training Loss: 0.016835208982229233
+Training Iteration: 335000
+Training Loss: 0.016482245177030563
+Training Iteration: 340000
+Training Loss: 0.016140010207891464
+Training Iteration: 345000
+Training Loss: 0.01580546423792839
+Training Iteration: 350000
+Training Loss: 0.015478534623980522
+Training Iteration: 355000
+Training Loss: 0.01515913289040327
+Training Iteration: 360000
+Training Loss: 0.014854051172733307
+Training Iteration: 365000
+Training Loss: 0.014556926675140858
+Training Iteration: 370000
+Training Loss: 0.014267509803175926
+Training Iteration: 375000
+Training Loss: 0.013985374942421913
+Training Iteration: 380000
+Training Loss: 0.013712075538933277
+Training Iteration: 385000
+Training Loss: 0.013446209952235222
+Training Iteration: 390000
+Training Loss: 0.013186603784561157
+Training Iteration: 395000
+Training Loss: 0.012934821657836437
+Training Iteration: 400000
+Training Loss: 0.012689945288002491
+Training Iteration: 405000
+Training Loss: 0.012453872710466385
+Training Iteration: 410000
+Training Loss: 0.012223205529153347
+Training Iteration: 415000
+Training Loss: 0.01199878565967083
+Training Iteration: 420000
+Training Loss: 0.011780666187405586
+Training Iteration: 425000
+Training Loss: 0.011569986119866371
+Training Iteration: 430000
+Training Loss: 0.011365526355803013
+Training Iteration: 435000
+Training Loss: 0.011165844276547432
+Training Iteration: 440000
+Training Loss: 0.01097166445106268
+Training Iteration: 445000
+Training Loss: 0.010783417150378227
+Training Iteration: 450000
+Training Loss: 0.010600791312754154
+Training Iteration: 455000
+Training Loss: 0.010424169711768627
+Training Iteration: 460000
+Training Loss: 0.01025191880762577
+Training Iteration: 465000
+Training Loss: 0.010084129869937897
+Training Iteration: 470000
+Training Loss: 0.009920665994286537
+Training Iteration: 475000
+Training Loss: 0.009762441739439964
+Training Iteration: 480000
+Training Loss: 0.009609611704945564
+Training Iteration: 485000
+Training Loss: 0.00946108065545559
+Training Iteration: 490000
+Training Loss: 0.009316361509263515
+Training Iteration: 495000
+Training Loss: 0.009175303392112255
+Training Iteration: 500000
+Training Loss: 0.009038778021931648
+Training Iteration: 505000
+Training Loss: 0.008906137198209763
+Training Iteration: 510000
+Training Loss: 0.008777366951107979
+Training Iteration: 515000
+Training Loss: 0.008652438409626484
+Training Iteration: 520000
+Training Loss: 0.008530864492058754
+Training Iteration: 525000
+Training Loss: 0.008412988856434822
+Training Iteration: 530000
+Training Loss: 0.008298490196466446
+Training Iteration: 535000
+Training Loss: 0.008187622763216496
+Training Iteration: 540000
+Training Loss: 0.00807963591068983
+Training Iteration: 545000
+Training Loss: 0.007974689826369286
+Training Iteration: 550000
+Training Loss: 0.00787297636270523
+Training Iteration: 555000
+Training Loss: 0.007774814963340759
+Training Iteration: 560000
+Training Loss: 0.007679628673940897
+Training Iteration: 565000
+Training Loss: 0.007587306201457977
+Training Iteration: 570000
+Training Loss: 0.0074975015595555305
+Training Iteration: 575000
+Training Loss: 0.00740988552570343
+Training Iteration: 580000
+Training Loss: 0.007324282079935074
+Training Iteration: 585000
+Training Loss: 0.007241283543407917
+Training Iteration: 590000
+Training Loss: 0.007160729728639126
+Training Iteration: 595000
+Training Loss: 0.007083003409206867
+Training Iteration: 600000
+Training Loss: 0.007008172571659088
+Training Iteration: 605000
+Training Loss: 0.006935653742402792
+Training Iteration: 610000
+Training Loss: 0.006865089293569326
+Training Iteration: 615000
+Training Loss: 0.006795895751565695
+Training Iteration: 620000
+Training Loss: 0.006728976033627987
+Training Iteration: 625000
+Training Loss: 0.006663945969194174
+Training Iteration: 630000
+Training Loss: 0.006600263528525829
+Training Iteration: 635000
+Training Loss: 0.006538598798215389
+Training Iteration: 640000
+Training Loss: 0.006479085423052311
+Training Iteration: 645000
+Training Loss: 0.006421680096536875
+Training Iteration: 650000
+Training Loss: 0.006365853361785412
+Training Iteration: 655000
+Training Loss: 0.006311558187007904
+Training Iteration: 660000
+Training Loss: 0.0062585859559476376
+Training Iteration: 665000
+Training Loss: 0.006207321770489216
+Training Iteration: 670000
+Training Loss: 0.006157250143587589
+Training Iteration: 675000
+Training Loss: 0.0061085643246769905
+Training Iteration: 680000
+Training Loss: 0.006061346270143986
+Training Iteration: 685000
+Training Loss: 0.006015211343765259
+Training Iteration: 690000
+Training Loss: 0.005970809143036604
+Training Iteration: 695000
+Training Loss: 0.005927198566496372
+Training Iteration: 700000
+Training Loss: 0.005884915124624968
+Training Iteration: 705000
+Training Loss: 0.0058440412394702435
+Training Iteration: 710000
+Training Loss: 0.005804454907774925
+Training Iteration: 715000
+Training Loss: 0.005766115617007017
+Training Iteration: 720000
+Training Loss: 0.0057286834344267845
+Training Iteration: 725000
+Training Loss: 0.005692547652870417
+Training Iteration: 730000
+Training Loss: 0.005657332018017769
+Training Iteration: 735000
+Training Loss: 0.005623136181384325
+Training Iteration: 740000
+Training Loss: 0.005589951761066914
+Training Iteration: 745000
+Training Loss: 0.005557735450565815
+Training Iteration: 750000
+Training Loss: 0.005526599939912558
+Training Iteration: 755000
+Training Loss: 0.005496908910572529
+Training Iteration: 760000
+Training Loss: 0.0054683140479028225
+Training Iteration: 765000
+Training Loss: 0.005440232343971729
+Training Iteration: 770000
+Training Loss: 0.005413214676082134
+Training Iteration: 775000
+Training Loss: 0.0053869131952524185
+Training Iteration: 780000
+Training Loss: 0.005361282266676426
+Training Iteration: 785000
+Training Loss: 0.005336856469511986
+Training Iteration: 790000
+Training Loss: 0.005313520785421133
+Training Iteration: 795000
+Training Loss: 0.005290966015309095
+Training Iteration: 800000
+Training Loss: 0.005269279237836599
+Training Iteration: 805000
+Training Loss: 0.005248270463198423
+Training Iteration: 810000
+Training Loss: 0.005227728746831417
+Training Iteration: 815000
+Training Loss: 0.005208257120102644
+Training Iteration: 820000
+Training Loss: 0.005189705640077591
+Training Iteration: 825000
+Training Loss: 0.005171819590032101
+Training Iteration: 830000
+Training Loss: 0.0051544103771448135
+Training Iteration: 835000
+Training Loss: 0.005137395579367876
+Training Iteration: 840000
+Training Loss: 0.00512076448649168
+Training Iteration: 845000
+Training Loss: 0.005104483105242252
+Training Iteration: 850000
+Training Loss: 0.005088868550956249
+Training Iteration: 855000
+Training Loss: 0.005073562730103731
+Training Iteration: 860000
+Training Loss: 0.005058669485151768
+Training Iteration: 865000
+Training Loss: 0.005044189281761646
+Training Iteration: 870000
+Training Loss: 0.00503007136285305
+Training Iteration: 875000
+Training Loss: 0.005016307346522808
+Training Iteration: 880000
+Training Loss: 0.0050028348341584206
+Training Iteration: 885000
+Training Loss: 0.00498982472345233
+Training Iteration: 890000
+Training Loss: 0.004977174568921328
+Training Iteration: 895000
+Training Loss: 0.004964915104210377
+Training Iteration: 900000
+Training Loss: 0.004952782299369574
+Training Iteration: 905000
+Training Loss: 0.004940969869494438
+Training Iteration: 910000
+Training Loss: 0.0049293809570372105
+Training Iteration: 915000
+Training Loss: 0.004918054677546024
+Training Iteration: 920000
+Training Loss: 0.004907038062810898
+Training Iteration: 925000
+Training Loss: 0.004896215163171291
+Training Iteration: 930000
+Training Loss: 0.004885528236627579
+Training Iteration: 935000
+Training Loss: 0.004875165410339832
+Training Iteration: 940000
+Training Loss: 0.0048650698736310005
+Training Iteration: 945000
+Training Loss: 0.0048557426780462265
+Training Iteration: 950000
+Training Loss: 0.004846528638154268
+Training Iteration: 955000
+Training Loss: 0.004837540909647942
+Training Iteration: 960000
+Training Loss: 0.0048287962563335896
+Training Iteration: 965000
+Training Loss: 0.0048201195895671844
+Training Iteration: 970000
+Training Loss: 0.004811740480363369
+Training Iteration: 975000
+Training Loss: 0.004803562071174383
+Training Iteration: 980000
+Training Loss: 0.0047956486232578754
+Training Iteration: 985000
+Training Loss: 0.004787932615727186
+Training Iteration: 990000
+Training Loss: 0.004780435003340244
+Training Iteration: 995000
+Training Loss: 0.004773293621838093
+Training Iteration: 1000000
+Training Loss: 0.004766272846609354
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label vs. prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{original data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{net2}\PY{p}{(}\PY{n}{inputs}\PY{p}{)}\PY{o}{.}\PY{n}{detach}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NN prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{train\PYZus{}loss2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{n}{ymin}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<IPython.core.display.Javascript object>
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Plot the distribution of activation thresholds}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{gaussian\PYZus{}kde}
+        \PY{n}{activations} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{divide}\PY{p}{(}\PY{n}{net}\PY{o}{.}\PY{n}{linear}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{bias}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{detach}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{net}\PY{o}{.}\PY{n}{linear}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{weight}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{detach}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{n}{density} \PY{o}{=} \PY{n}{gaussian\PYZus{}kde}\PY{p}{(}\PY{n}{activations}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+        \PY{n}{xs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{200}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xs}\PY{p}{,}\PY{n}{density}\PY{p}{(}\PY{n}{xs}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<IPython.core.display.Javascript object>
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
